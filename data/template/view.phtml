@@ -1,0 +1,63 @@
+<?php
+
+$title = $this->translate('');
+#meta keywords
+$this->headMeta()->appendName('keywords', '');
+#meta description
+$this->headMeta()->appendName('description', '');
+#page title
+$this->headTitle($this->escapeHtml($title));
+
+
+$form = $this->form;
+$form->setAttribute('action', $this->url(''));
+$form->prepare();
+
+?>
+
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-md-5 shadow-sm">
+
+			<?= $this->form()->openTag($form); ?>
+
+			<h3 class="pt-2 text-md-center">
+				<?= $this->translate(''); ?>
+			</h3>
+
+			<div class="mb-3">
+				<?= $this->formLabel($form->get('')); ?>
+				<div class="input-group">
+					<?= $this->formText($form->get('')); ?>
+				</div>
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('')); ?>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<?= $this->formLabel($form->get('')); ?>
+				<div class="input-group">
+					<?= $this->formText($form->get('')); ?>
+				</div>
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('')); ?>
+				</div>
+			</div>
+
+			<div class="mb-3 float-right">
+				<?= $this->formHidden($form->get('csrf')); ?>
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('csrf')); ?>
+				</div>
+				<?= $this->formSubmit($form->get('')); ?>
+			</div>
+
+			<?= $this->form()->closeTag(); ?>
+		</div>
+
+	</div>
+
+</div>

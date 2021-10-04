@@ -1,0 +1,86 @@
+<?php
+
+$title = $this->translate('View Results');
+#meta keywords
+$this->headMeta()->appendName('keywords', 'View, Results, Quiz');
+#meta description
+$this->headMeta()->appendName('description', 'View quiz results');
+#page title
+$this->headTitle($this->escapeHtml($title));
+
+?>
+
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-md-8 shadow-sm">
+
+			<h3 class="pt-2 text-md-center">
+				<?= $this->translate('Quiz #'. $this->quiz->getQuizId() . '-' . $this->quiz->getTitle()); ?>
+			</h3>
+
+			<p class="text-muted form-text mb-3">
+				<?= $this->escapeHtml($this->translate($this->quiz->getQuestion())); ?>
+			</p>
+
+			<?php
+
+			$answers = $this->answerTable->fetchAnswersById((int) $this->quiz->getQuizId());
+
+			foreach ($answers as $index => $answer):
+				# I want us to make those percentage numbers a bit neat.
+				$percent = $this->quiz->getTotal() != 0 ? sprintf("%.2f", 100.0 * $answer->getTally() / $this->quiz->getTotal()) : 0;
+			?>
+
+			<small class="text-muted">
+				<?= $this->escapeHtml($answer->getAnswer()) . '(' . $percent . '%) - '. $answer->getTally() . ' of ' . $this->quiz->getTotal() . ' answers'; ?>
+			</small>
+
+			<div class="progress mb-2" style="height: 25px;">
+				
+				<div class="progress-bar barChart-<?= (($index % 5) + 1); ?>" role="progressbar" title="<?= $percent; ?>" style="width: <?= $percent == 0 ? ++$percent : $percent; ?>%"
+					aria-valuenow="<?= $percent; ?>" aria-value-min="0" aria-value-max="100">
+				</div>
+			</div>
+
+			<?php endforeach; ?>
+
+			<hr>
+
+			<div class="mb-3">
+				<ul class="list-inline text-md-center">
+					<li class="list-inline-item text-md-center text-muted">
+						<?= $this->translate('Posted by '); ?>
+						<a href="<?= $this->url('profile', ['id' => $this->quiz->getUserId(), 'username' => mb_strtolower($this->quiz->getUsername())]); ?>">
+							<?= $this->quiz->getUsername(); ?>
+						</a>
+					</li>&diam;
+
+					<li class="list-inline-item">
+						<time class="timeago" datetime="<?= $this->quiz->getCreated(); ?>" title="<?= $this->quiz->getCreated(); ?>">
+
+							<?= $this->dateFormat(
+								new DateTime($this->quiz->getCreated()), 
+								IntlDateFormatter::LONG, # date
+								IntlDateFormatter::MEDIUM, #time
+								"en-us"
+							); ?>
+						</time>
+					</li>&diam;
+
+					<li class="list-inline-item">
+						<?= $this->translate('Status: ' . $this->quiz->getStatus()); ?>
+					</li>&diam;
+
+					<li class="list-inline-item">
+						<?= $this->translate('Views ' . $this->quiz->getViews()); ?>
+					</li>
+
+				</ul>
+
+			</div>
+		</div>
+
+	</div>
+</div>

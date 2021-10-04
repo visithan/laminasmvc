@@ -1,0 +1,49 @@
+.w-30 {
+	width: 30% !important;
+}
+
+#day {
+	margin-left: 2px;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.brand-header {
+	line-height: 1;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.appNav {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.logo a {
+	font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+	font-size: 200%;
+	color: #ccc;
+}
+
+.barChart-1 {
+	background-color: #1E90FF ;    /** dodger blue*/
+}
+
+.barChart-2 {
+	background-color: #FF1493;    /** deep pink */
+}
+
+
+.barChart-3 {
+	background-color: #8B4513;    /** saddle brown*/
+}
+
+
+.barChart-4 {
+	background-color: #FFD700;    /** gold */
+}
+
+
+.barChart-5 {
+	background-color: #228B22;    /** forest green */
+}

@@ -1,0 +1,72 @@
+<?php
+
+$title = $this->translate('Deactivate Account');
+#meta keywords
+$this->headMeta()->appendName('keywords', 'Delete, Deactivate, Account');
+#meta description
+$this->headMeta()->appendName('description', 'Delete user account');
+#page title
+$this->headTitle($this->escapeHtml($title));
+
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin_user', ['action' => 'delete', 'id' => $this->id]));
+$form->prepare();
+
+?>
+
+<div class="container">
+
+	<div class="row mb-3">
+
+		<div class="nav-scroller shadow-sm">
+			<nav class="nav nav-underline">
+				<a href="<?= $this->url('settings', ['action' => 'email']); ?>" class="nav-link">
+					Change Email Address
+				</a>
+				
+				<a href="<?= $this->url('settings', ['action' => 'password']); ?>" class="nav-link">
+					Change Password
+				</a>
+
+				<a href="<?= $this->url('settings', ['action' => 'username']); ?>" class="nav-link">
+					Change Username
+				</a>
+
+				<a href="<?= $this->url('settings', ['action' => 'delete']); ?>" class="nav-link">
+					Deactivate Account
+				</a>
+			</nav>
+		</div>
+	</div>
+
+
+	<div class="row">
+
+		<div class="col-md-5 shadow-sm">
+
+			<?= $this->form()->openTag($form); ?>
+
+			<h4 class="pt-2 text-md-center">
+				<?= $this->translate('Are you sure you want to do this?'); ?>
+			</h4>
+
+			<hr>
+
+			<div class="mb-3 float-left">
+				<div class="input-group">
+					<?= $this->formSubmit($form->get('delete_account')->setValue('No')); ?>
+				</div>
+			</div>
+
+			<div class="mb-3 float-right">
+				<?= $this->formHidden($form->get('user_id')->setValue($this->id)); ?>
+				<?= $this->formSubmit($form->get('delete_account')->setValue('Yes')); ?>
+			</div>
+
+			<?= $this->form()->closeTag(); ?>
+		</div>
+
+	</div>
+
+</div>

@@ -1,0 +1,122 @@
+<?php
+/**
+ * @var Laminas\View\Renderer\PhpRenderer $this
+ */
+?>
+<?= $this->doctype() ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?= $this->headTitle('Laminas MVC Skeleton')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/app.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?= $this->headScript()
+                 ->prependFile($this->basePath('js/jquery-3.4.1.min.js')); ?>
+    </head>
+    <body>
+
+        <div class="container">
+            <header class="brand-header py-3">
+
+                <div class="row flex-nowrap justify-content-between align-items-center">
+                    <div class="col-4 pt-1">
+                        <?= date('l, j F, Y'); ?>
+                    </div>
+
+                    <div class="logo col-4 text-center">
+                        <a href="<?= $this->url('home'); ?>">
+                            MyApp
+                        </a>
+                    </div>
+
+                    <div class="col-4 d-flex justify-content-end align-items-center">
+                        <?php if($this->identity()) { ?>
+                            <?php if($this->identity()->role_id == 1): ?>
+                            <a href="<?= $this->url('admin_user', ['action' => 'index']); ?>" class="btn btn-sm btn-outline-secondary mr-2">
+                                Admin
+                            </a>
+                        <?php endif; ?>
+
+                        <a href="<?= $this->url('settings', ['action' => 'index']); ?>" class="mr-2 btn btn-sm btn-outline-secondary">
+                            Settings
+                        </a>
+
+                        <a href="<?= $this->url('logout'); ?>" class="btn btn-sm btn-outline-secondary">
+                            Logout
+                        </a>
+                        <?php } else { ?>
+                            <a href="<?= $this->url('login'); ?>" class="btn btn-sm btn-outline-secondary mr-2">
+                            Login
+                            </a>
+                            <a href="<?= $this->url('signup'); ?>" class="btn btn-sm btn-outline-secondary">
+                                Join
+                            </a>
+
+                        <?php } ?>
+                    </div>
+
+                </div>     
+                       
+            </header>
+
+            <div class="appNav py-1 mb-2">
+                <nav class="nav d-flex">
+                    <a href="<?= $this->url('home'); ?>" class="pt-2 text-muted mr-2">Home</a>
+                    <?php if($this->identity()): ?>
+                    <a href="<?= $this->url('quiz', ['action' => 'index']); ?>" class="pt-2 text-muted mr-2">
+                        Quiz
+                   </a>
+
+                   <?php endif; ?>    
+
+                    <a href="#" class="pt-2 text-muted">Members</a>
+                </nav>
+            </div>
+        </div>
+
+        <main class="container" role="main">
+             <?= $this->partial('partial/flash.phtml', $this->flashMessenger()); ?>
+
+            <?= $this->content ?>
+            <hr>
+        </main>
+
+        <footer class="text-center text-muted">
+            <div class="small">
+                <p class="mb-1">
+                    <?= $this->translate('Copyright &copy; ' . date('Y') . '. All rights reserved.'); ?>
+                </p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a href="<?= $this->url('help', ['action' => 'privacy']); ?>">Privacy</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="<?= $this->url('help', ['action' => 'terms']); ?>">Terms</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="<?= $this->url('help', ['action' => 'contact']); ?>">Contact</a>
+                    </li>
+                </ul>
+                Powered by Laminas Project
+            </div>
+        </footer>
+        <?= $this->inlineScript()
+                 ->prependFile($this->basePath('js/jquery.timeago.js'))
+                 ->prependFile($this->basePath('js/app.js'))
+                 ->prependFile($this->basePath('js/bootstrap.min.js'))
+
+            
+        ?>
+    </body>
+</html>

@@ -1,0 +1,86 @@
+<?php
+
+$title = $this->translate('Change Username');
+#meta keywords
+$this->headMeta()->appendName('keywords', 'Edit, Change, Account, Username');
+#meta description
+$this->headMeta()->appendName('description', 'Update account username');
+#page title
+$this->headTitle($this->escapeHtml($title));
+
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('settings', ['action' => 'username']));
+$form->prepare();
+
+?>
+
+<div class="container">
+
+	<div class="row mb-3">
+
+		<div class="nav-scroller shadow-sm">
+			<nav class="nav nav-underline">
+				<a href="<?= $this->url('settings', ['action' => 'email']); ?>" class="nav-link">
+					Change Email Address
+				</a>
+				
+				<a href="<?= $this->url('settings', ['action' => 'password']); ?>" class="nav-link">
+					Change Password
+				</a>
+
+				<a href="<?= $this->url('settings', ['action' => 'username']); ?>" class="nav-link">
+					Change Username
+				</a>
+
+				<a href="<?= $this->url('settings', ['action' => 'delete']); ?>" class="nav-link">
+					Deactivate Account
+				</a>
+			</nav>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-5 shadow-sm">
+
+			<h3 class="pt-2 text-md-center">
+				<?= $this->translate('Change My Username'); ?>
+			</h3>
+
+			<?= $this->form()->openTag($form); ?>
+
+			<div class="mb-3">
+				<?= $this->formLabel($form->get('current_username')); ?>
+				<div class="input-group">
+					<?= $this->formText($form->get('current_username')->setValue($this->authHelper()->getUsername())); ?>
+				</div>
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('current_username')); ?>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<?= $this->formLabel($form->get('new_username')); ?>
+				<div class="input-group">
+					<?= $this->formText($form->get('new_username')); ?>
+				</div>
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('new_username')); ?>
+				</div>
+			</div>
+
+			<div class="mb-3 float-right">
+				<?= $this->formHidden($form->get('csrf')); ?>
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('csrf')); ?>
+				</div>
+				<?= $this->formSubmit($form->get('change_username')); ?>
+			</div>
+
+			<?= $this->form()->closeTag(); ?>
+		</div>
+
+	</div>
+
+</div>

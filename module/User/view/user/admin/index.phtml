@@ -1,0 +1,55 @@
+<div class="table-responsive">
+
+	<a class="mb-3" href="<?= $this->url('admin_quiz', ['action' => 'index']); ?>">Go to Quiz Admin</a>
+
+	<h1>Active User Accounts</h1>
+
+	<table class="table table-striped table-sm">
+
+		<thead>
+				
+			<tr>
+				<th>#</th>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Gender</th>
+				<th>Role</th>
+				<th>Action</th>
+			</tr>
+
+		</thead>
+
+		<tbody>
+			
+			<?php foreach ($this->accounts as $account) { ?>
+				<tr>
+					<td><?= $account->getUserId(); ?></td>
+					<td>
+						<a href="<?= $this->url('profile', ['id' => $account->getUserId(), 'username' => strtolower($account->getUsername())]); ?>">
+							<?= $account->getUsername(); ?>
+						</a>
+					</td>
+					<td><?= $account->getEmail(); ?></td>
+					<td><?= $account->getGender(); ?></td>
+					<td><?= $account->getRole(); ?></td>
+					<td>
+						<a href="<?= $this->url('admin_user', ['action' => 'delete', 'id' => $account->getUserId()]); ?>">
+							Delete
+						</a>
+					</td>
+				</tr>
+
+			<?php } ?>
+		</tbody>
+		
+	</table>
+</div>
+
+<?= $this->paginationControl(
+	$this->accounts,
+	'sliding',         
+	'partial/paginator',
+	['route' => 'admin_user']
+);
+
+?>

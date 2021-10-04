@@ -1,0 +1,94 @@
+<?php
+
+$title = $this->translate('Edit Email Address');
+# meta keywords
+$this->headMeta()->appendName('keywords', 'Change, Edit, Update, Email Address');
+# meta description
+$this->headMeta()->appendName('description', 'Update your email address');
+#page title
+$this->headTitle($this->escapeHtml($title));
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('settings', ['action' => 'email']));
+$form->prepare();
+
+?>
+
+<div class="container">
+
+	<div class="row mb-3">
+		<div class="nav-scroller shadow-sm">
+			<nav class="nav nav-underline">
+				<a href="<?= $this->url('settings', ['action' => 'email']); ?>" class="nav-link">
+					Change Email Address
+				</a>
+				
+				<a href="<?= $this->url('settings', ['action' => 'password']); ?>" class="nav-link">
+					Change Password
+				</a>
+
+				<a href="<?= $this->url('settings', ['action' => 'username']); ?>" class="nav-link">
+					Change Username
+				</a>
+
+				<a href="<?= $this->url('settings', ['action' => 'delete']); ?>" class="nav-link">
+					Deactivate Account
+				</a>
+			</nav>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-5 shadow-sm">
+			<h3 class="mb-3 text-md-center">
+				<?= $this->translate('Change Email Address'); ?>
+			</h3>
+
+			<?= $this->form()->openTag($form); ?>
+
+			<div class="mb-3">
+				<?= $this->formLabel($form->get('current_email')); ?>
+				<div class="input-group">
+					<?= $this->formEmail($form->get('current_email')->setValue($this->authHelper()->getEmail())); ?>
+				</div>
+
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('current_email')); ?>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<?= $this->formLabel($form->get('new_email')); ?>
+				<div class="input-group">
+					<?= $this->formEmail($form->get('new_email')); ?>
+				</div>
+
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('new_email')); ?>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<?= $this->formLabel($form->get('confirm_new_email')); ?>
+				<div class="input-group">
+					<?= $this->formEmail($form->get('confirm_new_email')); ?>
+				</div>
+
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('confirm_new_email')); ?>
+				</div>
+			</div>
+
+			<div class="mb-3 float-right">
+				<?= $this->formHidden($form->get('csrf')); ?>
+				
+				<div class="text-danger">
+					<?= $this->formElementErrors($form->get('csrf')); ?>
+				</div>
+				<?= $this->formSubmit($form->get('change_email')); ?>
+			</div>
+
+			<?= $this->form()->closeTag(); ?>
+		</div>
+	</div>
+</div>

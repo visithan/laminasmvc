@@ -1,0 +1,49 @@
+<?php
+
+$title = $this->translate('Delete Quiz');
+#meta keywords
+$this->headMeta()->appendName('keywords', 'Remove, Delete, Quiz');
+#meta description
+$this->headMeta()->appendName('description', 'Delete quiz');
+#page title
+$this->headTitle($this->escapeHtml($title));
+
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('quiz', ['action' => 'delete', 'id' => $this->quiz->getQuizId()]));
+$form->prepare();
+
+?>
+
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-md-5 shadow-sm">
+
+			<?= $this->form()->openTag($form); ?>
+
+			<h3 class="pt-2 text-md-center mb-3">
+				<?= $this->translate('Delete Quiz'); ?>
+			</h3>
+
+			<p class="form-text">Are you sure, you want to do this?</p>
+			
+			<div class="mb-3 float-left">
+				<?= $this->formSubmit($form->get('delete_quiz')->setValue('No')); ?>
+			</div>
+
+			<div class="mb-3 float-right">
+				<?= $this->formHidden($form->get('user_id')->setValue($this->authHelper()->getUserId())); ?>
+				<!-- i do not know why i created this. for i have not used it. Anyways? -->
+				<?= $this->formHidden($form->get('quiz_id')->setValue($this->quiz->getQuizId())); ?>
+
+				<?= $this->formSubmit($form->get('delete_quiz')->setValue('Yes')); ?>
+			</div>
+
+			<?= $this->form()->closeTag(); ?>
+		</div>
+
+	</div>
+
+</div>
